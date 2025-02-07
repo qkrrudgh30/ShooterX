@@ -56,13 +56,16 @@ void ASXPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	APlayerController* PC = Cast<APlayerController>(GetController());
-	SXCheckF(IsValid(PC) == true, TEXT("PlayerController is invalid."));
+	if (HasAuthority() == false && IsLocallyControlled() == true)
+	{
+		APlayerController* PC = Cast<APlayerController>(GetController());
+		SXCheckF(IsValid(PC) == true, TEXT("PlayerController is invalid."));
 	
-	UEnhancedInputLocalPlayerSubsystem* EILPS = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer());
-	SXCheckF(IsValid(EILPS) == true, TEXT("EnhancedInputLocalPlayerSubsystem is invalid."));
+		UEnhancedInputLocalPlayerSubsystem* EILPS = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer());
+		SXCheckF(IsValid(EILPS) == true, TEXT("EnhancedInputLocalPlayerSubsystem is invalid."));
 	
-	EILPS->AddMappingContext(InputMappingContext, 0);
+		EILPS->AddMappingContext(InputMappingContext, 0);
+	}
 }
 
 void ASXPlayerCharacter::HandleMoveInput(const FInputActionValue& InValue)

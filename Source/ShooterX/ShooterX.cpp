@@ -17,6 +17,7 @@ class FShooterXModule : public FDefaultGameModuleImpl
 IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, ShooterX, "ShooterX" );
 
 DEFINE_LOG_CATEGORY(LogSX);
+DEFINE_LOG_CATEGORY(LogSXNet);
 
 TAutoConsoleVariable<bool> CVarDebugGeneral(TEXT("SX.Debug.General"), false, TEXT("일반적인 디버깅 정보를 띄우고자 할 때 사용합니다.\n"), ECVF_Cheat);
 

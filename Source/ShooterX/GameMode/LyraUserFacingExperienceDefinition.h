@@ -22,7 +22,7 @@ public:
 	/** The specific map to load */
 	// MapID 속성은 Map이 될수도 있고, ExperienceDefinition이 될수도 있지만 AllowedTypes 키워드에 의해 Map으로 제한됨.
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Experience, meta = (AllowedTypes = "LCExperienceDefinition"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Experience, meta = (AllowedTypes = "LyraExperienceDefinition"))
 	FPrimaryAssetId ExperienceID;
 	/** The gameplay experience to load */
 

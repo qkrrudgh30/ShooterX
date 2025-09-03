@@ -32,7 +32,32 @@ void ALyraGameModeBase::InitGame(const FString& MapName, const FString& Options,
 
 void ALyraGameModeBase::HandleMatchAssignmentIfNotExpectingOne()
 {
-	// 여기서 익스피리언스의 로딩이 진행될 예정.
+	// 다음 프레임에 수행되는 HandleMatchAssignmentIfNotExpectingOne() 함수 
+	// 이전 프레임에서 GameInstance가 관리하는 매니저들을 초기화가 끝난 뒤에
+	// Experience의 초기화를 진행하기 위해 다음 프레임에 위 함수를 바인드함.
+	// 위 함수는 Experience 로딩의 시작점.
+
+	// 현재 매칭에 필요한 Experience를 로딩하는 과정에 있음.
+	// 이 함수에서는 우리가 로딩할 Experience에 대한 PrimaryAssetId를 생성하여, OnMatchAssignmentGiven() 함수로 넘겨줌.
+	FPrimaryAssetId ExperienceId;
+
+	// precedence order (highest wins)
+	// - matchmaking assignment (if present) -> 포탈에 폰이 접근하는 로직 구현 시에 사용 예정.
+	// - default experience
+
+	UWorld* World = GetWorld();
+
+	// fall back to the default experience
+	// 일단 기본 옵션으로 B_DefaultExperience로 설정.
+	if (false == ExperienceId.IsValid())
+	{
+		ExperienceId = FPrimaryAssetId(FPrimaryAssetType("LyraExperienceDefinition"), FName("B_DefaultExperience"));
+	}
+
+	// 필자가 이해한 HandleMatchAssignmentIfNotExpectingOne() 함수와 OnMatchAssignmentGiven() 함수는 아직 직관적으로 이름이 와닿지 않는다고 생각.
+	// - 후일 어느정도 Lyra가 구현되면, 해당 함수의 이름을 더 이해할 수 있을 것으로 예상.
+	// - 라이라는 기본적으로 멀티플레이 기반. 매치와 Experience 개념을 염두해 두고 함수 명을 짜는듯함.
+	OnMatchAssignmentGiven(ExperienceId);
 }
 
 void ALyraGameModeBase::InitGameState()
@@ -76,3 +101,19 @@ void ALyraGameModeBase::HandleStartingNewPlayer_Implementation(APlayerController
 		Super::HandleStartingNewPlayer_Implementation(NewPlayer);
 	}
 }
+
+void ALyraGameModeBase::OnMatchAssignmentGiven(FPrimaryAssetId ExperienceId)
+{
+	// 해당 함수는 ExperienceManagerComponent를 활용하여 Experience를 로딩하기 위해
+	// ExperienceManagerComponent의 SetCurrentExperience를 호출함.
+
+	check(true == ExperienceId.IsValid());
+
+	ULyraExperienceManagerComponent* ExperienceManagerComponent = GameState->FindComponentByClass<ULyraExperienceManagerComponent>();
+	check(true == ::IsValid(ExperienceManagerComponent));
+
+	ExperienceManagerComponent->SetCurrentExperience(ExperienceId);
+	// 게임모드에서 익스피리언스 로딩을 담당하지 않음을 다시 한 번 보여주는 코드.
+	// 로드하고자하는 익스피리언스 아이디를 익스피리언스 매니저에게 넘겨서 로딩을 요청하는 모습.
+}
+

@@ -48,5 +48,10 @@ public:
 	//  2. RestartPlayer() 함수가 if문에 따라 호출될지 말지 결정됨을 확인.
 	//    다시 RestartPlayer() 함수를 Ctrl + 클릭해서 타고 들어감.
 	//  3. RestartPlayerAtPlayerStart() 함수가 호출됨을 확인.
+
+	void OnMatchAssignmentGiven(FPrimaryAssetId ExperienceId);
+	// ExperienceId를 넘겨 받는 MatchAssignmentGiven() 함수
+	// 위 함수도 직접적인 초기화를 수행하진 않음. 
+	// SetCurrentExperience() 함수에 넘겨받은 ExperienceId를 다시 넘겨주는 함수.
 	
 };

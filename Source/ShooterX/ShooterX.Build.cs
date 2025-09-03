@@ -19,6 +19,9 @@ public class ShooterX : ModuleRules
 			// GameStateComponent
 			"ModularGameplay",
 			
+			// GameFeaturesSubsystemSettings
+			"GameFeatures",
+			
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

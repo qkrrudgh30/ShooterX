@@ -31,15 +31,28 @@ class SHOOTERX_API ULyraExperienceManagerComponent : public UGameStateComponent
 public:
 	ULyraExperienceManagerComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	
 	bool IsExperienceLoaded() { return (LoadState == ELyraExperienceLoadState::Loaded) && (nullptr != CurrentExperience); }
 
 	void CallOrRegister_OnExperienceLoaded(FOnLyraExperienceLoaded::FDelegate&& Delegate);
 	// 이미 Experience 로딩이 완료되었다면 바로 호출되고, 아니면 OnExperienceLoaded에 바인딩 됨.
 
+	void OnExperienceLoadComplete();
+
+	void OnExperienceFullLoadComplete();
+
+	void StartExperienceLoad();
+
+	void SetCurrentExperience(FPrimaryAssetId ExperienceId);
+
+private:
+	UFUNCTION()
+	void OnRep_CurrentExperience();
+	
 public:
-	UPROPERTY()
+	UPROPERTY(ReplicatedUsing=OnRep_CurrentExperience)
 	TObjectPtr<const ULyraExperienceDefinition> CurrentExperience;
-	// 라이라 프로젝트에서는 Replicated 속성임. 이번 강의에서는 레플리케이션을 고려하지 않고 진행.
 
 	ELyraExperienceLoadState LoadState = ELyraExperienceLoadState::Unloaded;
 	// Experience의 로딩 상태 모니터링.

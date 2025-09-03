@@ -172,6 +172,13 @@ void ULyraExperienceManagerComponent::SetCurrentExperience(FPrimaryAssetId Exper
 	StartExperienceLoad();
 }
 
+const ULyraExperienceDefinition* ULyraExperienceManagerComponent::GetCurrentExperienceChecked() const
+{
+	check(ELyraExperienceLoadState::Loaded == LoadState);
+	check(nullptr != CurrentExperience);
+	return CurrentExperience;
+}
+
 void ULyraExperienceManagerComponent::OnRep_CurrentExperience()
 {
 	StartExperienceLoad();

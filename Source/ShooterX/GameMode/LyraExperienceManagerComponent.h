@@ -46,6 +46,8 @@ public:
 
 	void SetCurrentExperience(FPrimaryAssetId ExperienceId);
 
+	const ULyraExperienceDefinition* GetCurrentExperienceChecked() const;
+
 private:
 	UFUNCTION()
 	void OnRep_CurrentExperience();

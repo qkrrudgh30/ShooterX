@@ -6,6 +6,7 @@
 #include "LyraGameModeBase.generated.h"
 
 class ULyraExperienceDefinition;
+class ULyraPawnData;
 
 /**
  * 
@@ -53,5 +54,11 @@ public:
 	// ExperienceId를 넘겨 받는 MatchAssignmentGiven() 함수
 	// 위 함수도 직접적인 초기화를 수행하진 않음. 
 	// SetCurrentExperience() 함수에 넘겨받은 ExperienceId를 다시 넘겨주는 함수.
+
+	const ULyraPawnData* GetPawnDataForController(const AController* InController) const;
+
+	virtual UClass* GetDefaultPawnClassForController_Implementation(AController* InController) final;
+	// Experience의 PawnData를 DefaultPawn으로 설정하기
+	// 이를 위해서 GetDefaultPawnClassForController() 함수를 재정의.
 	
 };

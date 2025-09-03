@@ -18,4 +18,8 @@ class SHOOTERX_API ULyraPawnData : public UPrimaryDataAsset
 public:
 	ULyraPawnData(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ULyraPawnData")
+	TSubclassOf<APawn> PawnClass;
+
 };

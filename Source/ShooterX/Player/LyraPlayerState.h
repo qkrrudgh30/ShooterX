@@ -5,6 +5,9 @@
 #include "GameFramework/PlayerState.h"
 #include "LyraPlayerState.generated.h"
 
+class ULyraPawnData;
+class ULyraExperienceDefinition;
+
 /**
  * 
  */
@@ -15,5 +18,9 @@ class SHOOTERX_API ALyraPlayerState : public APlayerState
 
 public:
 	ALyraPlayerState(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+	virtual void PostInitializeComponents() final;
+
+	void OnExperienceLoaded(const ULyraExperienceDefinition* CurrentExperience);
 	
 };

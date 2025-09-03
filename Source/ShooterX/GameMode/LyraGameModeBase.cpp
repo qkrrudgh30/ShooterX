@@ -7,6 +7,7 @@
 #include "Player/LyraPlayerState.h"
 #include "Character/LyraCharacterBase.h"
 #include "LyraExperienceManagerComponent.h"
+#include "ShooterX.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraGameModeBase)
 
@@ -47,4 +48,31 @@ void ALyraGameModeBase::InitGameState()
 
 void ALyraGameModeBase::OnExperienceLoaded(const ULyraExperienceDefinition* CurrentExperience)
 {
+}
+
+APawn* ALyraGameModeBase::SpawnDefaultPawnAtTransform_Implementation(AController* NewPlayer,
+	const FTransform& SpawnTransform)
+{
+	UE_LOG(LogSX, Log, TEXT("ALyraGameModeBase::SpawnDefaultPawnAtTransform_Implementation() has been called."));
+	
+	return Super::SpawnDefaultPawnAtTransform_Implementation(NewPlayer, SpawnTransform);
+}
+
+bool ALyraGameModeBase::IsExperienceLoaded() const
+{
+	check(GameState);
+
+	ULyraExperienceManagerComponent* ExperienceManagerComponent = GameState->FindComponentByClass<ULyraExperienceManagerComponent>();
+	check(ExperienceManagerComponent);
+
+	return ExperienceManagerComponent->IsExperienceLoaded();
+}
+
+void ALyraGameModeBase::HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer)
+{
+	if (true == IsExperienceLoaded())
+	{
+		// Experience가 로드되어 있지 않으면 Pawn이 스폰되는 것도 막음.
+		Super::HandleStartingNewPlayer_Implementation(NewPlayer);
+	}
 }

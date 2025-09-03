@@ -5,7 +5,7 @@
 #include "Engine/DataAsset.h"
 #include "LyraExperienceDefinition.generated.h"
 
-class ULCPawnData;
+class ULyraPawnData;
 
 UCLASS(BlueprintType)
 class SHOOTERX_API ULyraExperienceDefinition : public UPrimaryDataAsset
@@ -17,7 +17,7 @@ public:
 
 public:
 	UPROPERTY(EditDefaultsOnly, Category = Gameplay)
-	TObjectPtr<ULCPawnData> DefaultPawnData;
+	TObjectPtr<ULyraPawnData> DefaultPawnData;
 	// DefaultPawnData에는 Pawn Class, InputMapping, ... 정보가 들어갈 예정.
 
 	UPROPERTY(EditDefaultsOnly, Category = Gameplay)

@@ -12,6 +12,13 @@ public class ShooterX : ModuleRules
 		{
 			// Initial Module
 			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput",
+			
+			// ModularGameplay Public Dependency Modules
+			"GameplayTags",
+
+			// GameStateComponent
+			"ModularGameplay",
+			
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

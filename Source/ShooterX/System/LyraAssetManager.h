@@ -47,7 +47,6 @@ public:
 	// ULyraAssetManager가 로딩을 관장하게 될 것임을 알 수 있는 함수.
 		
 #pragma endregion
-
 	
 #pragma region Asset Caching
 

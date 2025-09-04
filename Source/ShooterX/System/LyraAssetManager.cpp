@@ -3,6 +3,7 @@
 
 #include "System/LyraAssetManager.h"
 
+#include "LyraGameplayTags.h"
 #include "ShooterX.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraAssetManager)
@@ -31,6 +32,12 @@ void ULyraAssetManager::StartInitialLoading()
 {
 	Super::StartInitialLoading();
 	// This does all of the scanning, need to do this now even if loads are deferred
+
+	// LyraGameplayTags 초기화
+	// - Lyra와의 차이점.
+	// -- STARTUP_JOB() 매크로를 활용하고 있으나, 현재 우리는 로딩과 관계 없으므로 간단하게 구현함.
+	// -- STARTUP_JOB() 매크로는 인자로 전달되는 함수를 곧바로 실행하지 않고, 실행에 필요한 애셋들을 모두 준비 되었을때 실행되게끔 하는 라이라 특유 매크로.
+	FLyraGameplayTags::InitializeNativeTags();
 }
 
 bool ULyraAssetManager::ShouldLogAssetLoads()

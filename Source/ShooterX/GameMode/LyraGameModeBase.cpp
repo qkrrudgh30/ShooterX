@@ -10,6 +10,7 @@
 #include "ShooterX.h"
 #include "LyraExperienceDefinition.h"
 #include "Character/LyraPawnData.h"
+#include "Character/LyraPawnExtensionComponent.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraGameModeBase)
 
@@ -101,9 +102,34 @@ void ALyraGameModeBase::OnExperienceLoaded(const ULyraExperienceDefinition* Curr
 APawn* ALyraGameModeBase::SpawnDefaultPawnAtTransform_Implementation(AController* NewPlayer,
 	const FTransform& SpawnTransform)
 {
-	UE_LOG(LogSX, Log, TEXT("ALyraGameModeBase::SpawnDefaultPawnAtTransform_Implementation() has been called."));
-	
-	return Super::SpawnDefaultPawnAtTransform_Implementation(NewPlayer, SpawnTransform);
+	FActorSpawnParameters SpawnInfo;
+	SpawnInfo.Instigator = GetInstigator();
+	SpawnInfo.ObjectFlags |= RF_Transient;
+	SpawnInfo.bDeferConstruction = true;
+
+	UClass* PawnClass = GetDefaultPawnClassForController(NewPlayer);
+	if (true == ::IsValid(PawnClass))
+	{
+		APawn* SpawnedPawn = GetWorld()->SpawnActor<APawn>(PawnClass, SpawnTransform, SpawnInfo);
+		if (true == ::IsValid(SpawnedPawn))
+		{
+			// FindPawnExtensionComponent 구현
+			ULyraPawnExtensionComponent* PawnExtComp = ULyraPawnExtensionComponent::FindPawnExtensionComponent(SpawnedPawn);
+			if (true == ::IsValid(PawnExtComp))
+			{
+				const ULyraPawnData* PawnData = GetPawnDataForController(NewPlayer);
+				if (true == ::IsValid(PawnData))
+				{
+					PawnExtComp->SetPawnData(PawnData);
+				}
+			}
+
+			SpawnedPawn->FinishSpawning(SpawnTransform);
+			return SpawnedPawn;
+		}
+	}
+
+	return nullptr;
 }
 
 bool ALyraGameModeBase::IsExperienceLoaded() const

@@ -4,9 +4,12 @@
 
 #include "Components/PawnComponent.h"
 #include "Components/GameFrameworkInitStateInterface.h"
+#include "InputActionValue.h"
 #include "LyraHeroComponent.generated.h"
 
 class ULyraCameraMode;
+class UInputMappingContext;
+class UInputComponent;
 
 /**
  * component that sets up input and camera handling for player controlled panws (or bots that simulate players)
@@ -49,8 +52,18 @@ public:
 	// 그러나 LyraHeroComponent는 추후에 입력과 카메라 관련 데이터 핸들링도 필요하기 때문에 HandleChangeInitState() 함수도 추가로 재정의.
 
 	TSubclassOf<ULyraCameraMode> DetermineCameraMode() const;
+
+	void InitializePlayerInput(UInputComponent* PlayerInputComponent);
+
+private:
+	void Input_Move(const FInputActionValue& InputActionValue);
+	
+	void Input_LookMouse(const FInputActionValue& InputActionValue);
 	
 public:
 	static const FName NAME_ActorFeatureName;
+
+	UPROPERTY(EditAnywhere)
+	TSoftObjectPtr<UInputMappingContext> InputMappingContext;
 	
 };

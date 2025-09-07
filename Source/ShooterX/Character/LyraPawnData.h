@@ -6,6 +6,7 @@
 #include "LyraPawnData.generated.h"
 
 class ULyraCameraMode;
+class ULyraInputConfig;
 
 /**
  * ULyraPawnData
@@ -26,5 +27,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ULyraPawnData")
 	TSubclassOf<ULyraCameraMode> DefaultCameraMode;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "LyraClone|InputConfig")
+	TObjectPtr<ULyraInputConfig> InputConfig;
 
 };

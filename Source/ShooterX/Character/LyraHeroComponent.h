@@ -6,6 +6,8 @@
 #include "Components/GameFrameworkInitStateInterface.h"
 #include "LyraHeroComponent.generated.h"
 
+class ULyraCameraMode;
+
 /**
  * component that sets up input and camera handling for player controlled panws (or bots that simulate players)
  * - this depends on a PawnExtensionComponent to coordinate initialization.
@@ -46,6 +48,8 @@ public:
 	// LyraPawnExtensionComponent는 모든 피쳐들의 초기화 진행 과정을 관장하는 역할만함. 따로 데이터 핸들링까지 하지 않음. 그래서 HandleChangeInitState() 재정의 하지 않음.
 	// 그러나 LyraHeroComponent는 추후에 입력과 카메라 관련 데이터 핸들링도 필요하기 때문에 HandleChangeInitState() 함수도 추가로 재정의.
 
+	TSubclassOf<ULyraCameraMode> DetermineCameraMode() const;
+	
 public:
 	static const FName NAME_ActorFeatureName;
 	

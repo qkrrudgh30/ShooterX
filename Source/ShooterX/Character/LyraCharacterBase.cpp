@@ -3,6 +3,7 @@
 
 #include "Character/LyraCharacterBase.h"
 #include "LyraPawnExtensionComponent.h"
+#include "Camera/LyraCameraComponent.h"
 
 ALyraCharacterBase::ALyraCharacterBase(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -16,6 +17,9 @@ ALyraCharacterBase::ALyraCharacterBase(const FObjectInitializer& ObjectInitializ
 	// 반면에 HeroComponent는 LyraCharacterBase의 블루프린트 클래스 애셋에서 직접 추가해줌.
 	// 이를 통해 HeroComponent가 PawnExtensionComponent 초기화 이후에 생성되게끔 유도함.
 	// SimpleConstructionScript(Blueprint Class) -> UClass(Unreal C++) -> UObject 구조.
+
+	CameraComponent = CreateDefaultSubobject<ULyraCameraComponent>(TEXT("CameraComponent"));
+	CameraComponent->SetRelativeLocation(FVector(-300.f, 0.f, 0.f));
 }
 
 void ALyraCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

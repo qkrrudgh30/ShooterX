@@ -7,6 +7,8 @@
 #include "LyraGameplayTags.h"
 #include "Player/LyraPlayerState.h"
 #include "Components/GameFrameworkComponentManager.h"
+#include "Character/LyraPawnData.h"
+#include "Camera/LyraCameraComponent.h"
 
 const FName ULyraHeroComponent::NAME_ActorFeatureName("Hero");
 
@@ -139,5 +141,42 @@ void ULyraHeroComponent::HandleChangeInitState(UGameFrameworkComponentManager* M
 		}
 
 		// TODO: Input과 Camera에 대한 핸들링
+
+		const bool bIsLocallyControlled = Pawn->IsLocallyControlled();
+		const ULyraPawnData* PawnData = nullptr;
+		if (ULyraPawnExtensionComponent* PawnExtComp = ULyraPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
+		{
+			PawnData = PawnExtComp->GetPawnData<ULyraPawnData>();
+		}
+
+		if (bIsLocallyControlled && PawnData)
+		{
+			// 현재 LyraCharacterBase에 Attach된 CameraComponent를 찾음
+			if (ULyraCameraComponent* CameraComponent = ULyraCameraComponent::FindCameraComponent(Pawn))
+			{
+				CameraComponent->DetermineCameraModeDelegate.BindUObject(this, &ThisClass::DetermineCameraMode);
+			}
+		}
 	}
+}
+
+TSubclassOf<ULyraCameraMode> ULyraHeroComponent::DetermineCameraMode() const
+{
+	const APawn* Pawn = GetPawn<APawn>();
+	if (false == ::IsValid(Pawn))
+	{
+		return nullptr;
+	}
+
+	ULyraPawnExtensionComponent* PawnExtComp = ULyraPawnExtensionComponent::FindPawnExtensionComponent(Pawn);
+	if (true == ::IsValid(PawnExtComp))
+	{
+		const ULyraPawnData* PawnData = PawnExtComp->GetPawnData<ULyraPawnData>();
+		if (true == ::IsValid(PawnData))
+		{
+			return PawnData->DefaultCameraMode;
+		}
+	}
+
+	return nullptr;
 }

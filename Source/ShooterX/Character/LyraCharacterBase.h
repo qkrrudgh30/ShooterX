@@ -6,6 +6,7 @@
 #include "LyraCharacterBase.generated.h"
 
 class ULyraPawnExtensionComponent;
+class ULyraCameraComponent;
 
 UCLASS()
 class SHOOTERX_API ALyraCharacterBase : public ACharacter
@@ -20,5 +21,8 @@ public:
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ALyraCharacterBase")
 	TObjectPtr<ULyraPawnExtensionComponent> PawnExtensionComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ALyraCharacterBase")
+	TObjectPtr<ULyraCameraComponent> CameraComponent;
 
 };

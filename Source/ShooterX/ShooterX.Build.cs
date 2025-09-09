@@ -21,6 +21,9 @@ public class ShooterX : ModuleRules
 			
 			// GameFeaturesSubsystemSettings
 			"GameFeatures",
+			
+			// CommonUser
+			"CommonUser",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

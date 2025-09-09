@@ -65,5 +65,8 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSoftObjectPtr<UInputMappingContext> InputMappingContext;
+
+	static const FName NAME_BindInputsNow;
+	// Extension Event 이름 정의
 	
 };

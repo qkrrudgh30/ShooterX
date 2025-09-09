@@ -6,6 +6,8 @@
 #include "Engine/DataAsset.h"
 #include "LyraUserFacingExperienceDefinition.generated.h"
 
+class UCommonSession_HostSessionRequest;
+
 /** Description of settings used to display experiences in the UI and start a new session */
 /**
  * ULyraUserFacingExperienceDefinition
@@ -15,6 +17,12 @@ UCLASS(BlueprintType)
 class SHOOTERX_API ULyraUserFacingExperienceDefinition : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
+
+public:
+	UFUNCTION(BlueprintCallable, BlueprintPure = false) 
+	UCommonSession_HostSessionRequest* CreateHostingRequest() const;
+	// Map 로딩 및 Experience 전환을 위해, MapID와 ExperienceID를 활용하여, HostSessionRequest 생성.
+	// BlueprintPure = true: 이벤트 그래프에서 Owning Object에 개의치 않고 실행되게끔 하겠다.
 
 public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Experience, meta = (AllowedTypes = "Map"))

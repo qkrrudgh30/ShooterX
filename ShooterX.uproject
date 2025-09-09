@@ -33,6 +33,14 @@
 		{
 			"Name": "ModularGameplay",
 			"Enabled": true
+		},
+		{
+			"Name": "CommonUser",
+			"Enabled": true
+		},
+		{
+			"Name": "ShooterCore",
+			"Enabled": true
 		}
 	]
 }

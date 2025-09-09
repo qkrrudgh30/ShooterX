@@ -11,6 +11,7 @@
 #include "LyraExperienceDefinition.h"
 #include "Character/LyraPawnData.h"
 #include "Character/LyraPawnExtensionComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraGameModeBase)
 
@@ -55,6 +56,21 @@ void ALyraGameModeBase::HandleMatchAssignmentIfNotExpectingOne()
 	if (false == ExperienceId.IsValid())
 	{
 		ExperienceId = FPrimaryAssetId(FPrimaryAssetType("LyraExperienceDefinition"), FName("B_DefaultExperience"));
+	}
+
+	// 우리가 앞서 URL과 함께 ExtraArgs로 넘겼던 정보는 OptionsString에 저장되어 있음.
+	if (ExperienceId.IsValid() && UGameplayStatics::HasOption(OptionsString, TEXT("Experience")))
+	{
+		// Experience의 Value를 가져와서 PrimaryAssetId를 생성해줌. 이때 LCExperienceDefinition의 Class 이름을 사용함.
+		const FString ExperienceFromOptions = UGameplayStatics::ParseOption(OptionsString, TEXT("Experience"));
+		ExperienceId = FPrimaryAssetId(FPrimaryAssetType(ULyraExperienceDefinition::StaticClass()->GetFName()), FName(*ExperienceFromOptions));
+	}
+
+	// fall back to the default experience
+	// 일단 기본 옵션으로 B_DefaultExperience로 설정.
+	if (false == ExperienceId.IsValid())
+	{
+		ExperienceId = FPrimaryAssetId(FPrimaryAssetType("LCExperienceDefinition"), FName("B_DefaultExperience"));
 	}
 
 	// 필자가 이해한 HandleMatchAssignmentIfNotExpectingOne() 함수와 OnMatchAssignmentGiven() 함수는 아직 직관적으로 이름이 와닿지 않는다고 생각.

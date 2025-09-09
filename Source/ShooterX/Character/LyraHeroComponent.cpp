@@ -15,6 +15,8 @@
 #include "InputMappingContext.h"
 
 const FName ULyraHeroComponent::NAME_ActorFeatureName("Hero");
+const FName ULyraHeroComponent::NAME_BindInputsNow("BindInputsNow");
+// InputConfig의 GameFeatureAction 활성화 ExtensionEvent 이름.
 
 ULyraHeroComponent::ULyraHeroComponent(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -241,6 +243,10 @@ void ULyraHeroComponent::InitializePlayerInput(UInputComponent* PlayerInputCompo
 			}
 		}
 	}
+
+	UGameFrameworkComponentManager::SendGameFrameworkComponentExtensionEvent(const_cast<APawn*>(Pawn), NAME_BindInputsNow);
+	// GameFeatureAction_AddInputConfig의 HandlePawnExtension 콜백 함수 전달	
+	// 특이하게 Receiver(여기선 Pawn)를 지정해줄 수있음. GFA_AddInputConfig::AddToWorld() 코드를 참고해보자.
 }
 
 void ULyraHeroComponent::Input_Move(const FInputActionValue& InputActionValue)

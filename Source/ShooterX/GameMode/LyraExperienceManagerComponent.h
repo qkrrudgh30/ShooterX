@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Components/GameStateComponent.h"
+#include "GameFeaturePluginOperationResult.h"
 #include "LyraExperienceManagerComponent.generated.h"
 
 class ULyraExperienceDefinition;
@@ -11,6 +12,8 @@ enum class ELyraExperienceLoadState
 {
 	Unloaded,
 	Loading,
+	LoadingGameFeatures,
+	ExecutingActions,
 	Loaded,
 	Deactivating,
 };
@@ -48,6 +51,8 @@ public:
 
 	const ULyraExperienceDefinition* GetCurrentExperienceChecked() const;
 
+	void OnGameFeaturePluginLoadComplete(const UE::GameFeatures::FResult& Result);
+
 private:
 	UFUNCTION()
 	void OnRep_CurrentExperience();
@@ -61,5 +66,10 @@ public:
 
 	FOnLyraExperienceLoaded OnExperienceLoaded;
 	// Experience 로딩이 완료된 이후 Broadcasting Delegate.
+
+	int32 NumGameFeaturePluginsLoading = 0;
+	// 활성화된 GameFeature Plugin 갯수
+
+	TArray<FString> GameFeaturePluginURLs;
 
 };

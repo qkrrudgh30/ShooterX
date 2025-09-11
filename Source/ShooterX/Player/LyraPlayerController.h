@@ -2,14 +2,14 @@
 
 #pragma once
 
-#include "GameFramework/PlayerController.h"
+#include "ModularPlayerController.h"
 #include "LyraPlayerController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SHOOTERX_API ALyraPlayerController : public APlayerController
+class SHOOTERX_API ALyraPlayerController : public AModularPlayerController
 {
 	GENERATED_BODY()
 

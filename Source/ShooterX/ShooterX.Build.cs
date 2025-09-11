@@ -24,6 +24,9 @@ public class ShooterX : ModuleRules
 			
 			// CommonUser
 			"CommonUser",
+			
+			// Game Features
+			"ModularGameplayActor",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

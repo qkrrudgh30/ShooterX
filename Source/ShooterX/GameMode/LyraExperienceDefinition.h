@@ -31,7 +31,7 @@ public:
 	TArray<TObjectPtr<ULyraExperienceActionSet>> ActionSets;
 	// ExperienceActionSet은 UGameFeatureAction의 Set. Gameplay 용도에 맞게 분류의 목적으로 사용함.
 
-	UPROPERTY(EditDefaultsOnly, Category = "GamePlay")
+	UPROPERTY(EditDefaultsOnly, Instanced, Category = "GamePlay")
 	TArray<TObjectPtr<UGameFeatureAction>> Actions;
 	// 일반적인 GameFeatureAction으로서 추가. 딱히 카테고리화 할 필요 없는 액션들.
 

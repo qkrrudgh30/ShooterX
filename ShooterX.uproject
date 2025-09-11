@@ -41,6 +41,18 @@
 		{
 			"Name": "ShooterCore",
 			"Enabled": true
-		}
+		},
+		{
+			"Name": "AnimationLocomotionLibrary",
+			"Enabled": true
+		},
+		{
+			"Name": "AnimationWarping",
+			"Enabled": true
+		},
+        {
+          "Name": "ModularGameplayActor",
+          "Enabled": true
+        }
 	]
 }

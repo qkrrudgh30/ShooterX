@@ -2,14 +2,14 @@
 
 #pragma once
 
-#include "GameFramework/Character.h"
+#include "ModularCharacter.h"
 #include "LyraCharacterBase.generated.h"
 
 class ULyraPawnExtensionComponent;
 class ULyraCameraComponent;
 
 UCLASS()
-class SHOOTERX_API ALyraCharacterBase : public ACharacter
+class SHOOTERX_API ALyraCharacterBase : public AModularCharacter
 {
 	GENERATED_BODY()
 

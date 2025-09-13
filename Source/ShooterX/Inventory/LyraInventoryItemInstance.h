@@ -1,0 +1,25 @@
+// LyraInventoryItemInstance.h
+
+#pragma once
+
+#include "UObject/Object.h"
+#include "Templates/SubclassOf.h"
+#include "LyraInventoryItemInstance.generated.h"
+
+class ULyraInventoryItemDefinition;
+
+// 해당 클래스는 인벤토리아이템의 개체로 볼 수 있음.
+UCLASS(BlueprintType)
+class SHOOTERX_API ULyraInventoryItemInstance : public UObject
+{
+	GENERATED_BODY()
+
+public:
+	ULyraInventoryItemInstance(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+public:
+	UPROPERTY()
+	TSubclassOf<ULyraInventoryItemDefinition> ItemDef;
+	// 인벤토리아이템인스턴스가 어떤 메타정보를 통해 정의되었는지는 인벤토리아이템데피니션이 들고 있음.
+
+};

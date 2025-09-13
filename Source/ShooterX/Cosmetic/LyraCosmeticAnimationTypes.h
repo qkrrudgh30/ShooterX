@@ -51,3 +51,33 @@ public:
 	// Physics Asset은 하나로 통일함. 즉 모든 Animation의 Physics 속성은 공유됨.
 
 };
+
+USTRUCT(BlueprintType)
+struct FLyraAnimLayerSelectionEntry
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UAnimInstance> Layer;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTagContainer RequiredTags;
+
+};
+
+USTRUCT(BlueprintType)
+struct FLyraAnimLayerSelectionSet
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FLyraAnimLayerSelectionEntry> LayerRules;
+	// 앞서 보았던 LCAnimBodyStyleSelectionSet의 MeshRule과 같이 AnimInstance의 Rule을 가진 LayerRules로 생각하면 됨.
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UAnimInstance> DefaultLayer;
+	// Default Layer
+
+};

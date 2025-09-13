@@ -1,0 +1,63 @@
+// LyraEquipmentManagerComponent.h
+
+#pragma once
+
+#include "Components/PawnComponent.h"
+#include "LyraEquipmentManagerComponent.generated.h"
+
+class ULyraEquipmentDefinition;
+class ULyraEquipmentInstance;
+
+USTRUCT(BlueprintType)
+struct FLyraAppliedEquipmentEntry
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY()
+	TSubclassOf<ULyraEquipmentDefinition> EquipmentDefinition;
+	// 장착물에 대한 메타 데이터
+
+	UPROPERTY()
+	TObjectPtr<ULyraEquipmentInstance> Instance = nullptr;
+	// 이큅먼트데피니션을 통해 생성된 인스턴스
+
+};
+
+// 참고로 EquipmentInstance의 인스턴스를 Entry에서 관리하고 있음.
+// - EquipmentList가 생성된 개체를 관리하고 있음.
+USTRUCT(BlueprintType)
+struct FLyraEquipmentList
+{
+	GENERATED_BODY()
+
+public:
+	FLyraEquipmentList(UActorComponent* InOwnerComponent = nullptr)
+		: OwnerComponent(InOwnerComponent)
+	{
+
+	}
+
+public:
+	UPROPERTY()
+	TArray<FLyraAppliedEquipmentEntry> Entries;
+
+	UPROPERTY()
+	TObjectPtr<UActorComponent> OwnerComponent;
+
+};
+
+// PawnComponent로서 장착물에 대한 관리 담당.
+UCLASS(BlueprintType)
+class SHOOTERX_API ULyraEquipmentManagerComponent : public UPawnComponent
+{
+	GENERATED_BODY()
+
+public:
+	ULyraEquipmentManagerComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+public:
+	UPROPERTY()
+	FLyraEquipmentList EquipmentList;
+
+};

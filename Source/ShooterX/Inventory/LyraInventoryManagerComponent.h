@@ -30,6 +30,8 @@ public:
 
 	}
 
+	ULyraInventoryItemInstance* AddEntry(TSubclassOf<ULyraInventoryItemDefinition> ItemDef);
+
 public:
 	UPROPERTY()
 	TArray<FLyraInventoryEntry> Entries;
@@ -48,6 +50,9 @@ class SHOOTERX_API ULyraInventoryManagerComponent : public UActorComponent
 
 public:
 	ULyraInventoryManagerComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+	UFUNCTION(BlueprintCallable, Category=Inventory)
+	ULyraInventoryItemInstance* AddItemDefinition(TSubclassOf<ULyraInventoryItemDefinition> ItemDef);
 
 public:
 	UPROPERTY()

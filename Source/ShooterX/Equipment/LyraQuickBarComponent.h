@@ -22,6 +22,11 @@ class ULyraQuickBarComponent : public UControllerComponent
 public:
 	ULyraQuickBarComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
+	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable)
+	void AddItemToSlot(int32 SlotIndex, ULyraInventoryItemInstance* Item);
+
 public:
 	// HUD QuickBar Slot 개수
 	UPROPERTY()

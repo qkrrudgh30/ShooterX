@@ -7,6 +7,7 @@
 
 class USkeletalMesh;
 class UPhysicsAsset;
+class UAnimInstance;
 
 // 스켈레탈메시에 관한 정보. 스켈레탈메시와 태그를 묶어둠.
 // ex) 전사라면 전사에 맞는 스켈레탈메시, 괴물이라면 괴물에 맞는 스켈레탈메시를 분간하기 위해 태그도 포함.
@@ -71,6 +72,10 @@ struct FLyraAnimLayerSelectionSet
 {
 	GENERATED_BODY()
 
+public:
+	TSubclassOf<UAnimInstance> SelectBestLayer(const FGameplayTagContainer& CosmeticTags) const;
+	// CosmeticTags 기반하여 적절한 AnimLayer를 반환.
+	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FLyraAnimLayerSelectionEntry> LayerRules;

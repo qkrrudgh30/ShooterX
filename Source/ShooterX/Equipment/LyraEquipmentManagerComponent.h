@@ -38,6 +38,10 @@ public:
 
 	}
 
+	ULyraEquipmentInstance* AddEntry(TSubclassOf<ULyraEquipmentDefinition> EquipmentDefinition);
+
+	void RemoveEntry(ULyraEquipmentInstance* Instance);
+
 public:
 	UPROPERTY()
 	TArray<FLyraAppliedEquipmentEntry> Entries;
@@ -55,6 +59,10 @@ class SHOOTERX_API ULyraEquipmentManagerComponent : public UPawnComponent
 
 public:
 	ULyraEquipmentManagerComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+	ULyraEquipmentInstance* EquipItem(TSubclassOf<ULyraEquipmentDefinition> EquipmentDefinition);
+
+	void UnequipItem(ULyraEquipmentInstance* ItemInstance);
 
 public:
 	UPROPERTY()

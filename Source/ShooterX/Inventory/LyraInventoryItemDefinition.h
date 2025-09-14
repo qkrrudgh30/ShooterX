@@ -23,6 +23,8 @@ class SHOOTERX_API ULyraInventoryItemDefinition : public UObject
 
 public:
 	ULyraInventoryItemDefinition(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+	
+	const ULyraInventoryItemFragment* FindFragmentByClass(TSubclassOf<ULyraInventoryItemFragment> FragmentClass) const;
 
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Display)

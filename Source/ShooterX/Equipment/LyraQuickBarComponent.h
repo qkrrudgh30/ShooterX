@@ -7,6 +7,7 @@
 
 class ULyraInventoryItemInstance;
 class ULyraEquipmentInstance;
+class ULyraEquipmentManagerComponent;
 
 // HUD의 QuickBar를 생각하면 됨.
 // - MMORPG에서 ShortCut HUD 같은 느낌.
@@ -26,6 +27,15 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void AddItemToSlot(int32 SlotIndex, ULyraInventoryItemInstance* Item);
+
+	ULyraEquipmentManagerComponent* FindEquipmentManager() const;
+
+	void EquipItemInSlot();
+
+	void UnequipItemInSlot();
+
+	UFUNCTION(BlueprintCallable, Category="LyraClone")
+	void SetActiveSlotIndex(int32 NewIndex);
 
 public:
 	// HUD QuickBar Slot 개수

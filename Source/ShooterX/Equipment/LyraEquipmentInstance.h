@@ -7,6 +7,8 @@
 #include "Containers/Array.h"
 #include "LyraEquipmentInstance.generated.h"
 
+struct FLyraEquipmentActorToSpawn;
+
 UCLASS(BlueprintType, Blueprintable)
 class SHOOTERX_API ULyraEquipmentInstance : public UObject
 {
@@ -20,6 +22,27 @@ public:
 
 	UFUNCTION(BlueprintPure, Category=Equipment)
 	UObject* GetInstigator() const { return Instigator; }
+
+	UFUNCTION(BlueprintPure, Category=Equipment)
+	APawn* GetPawn() const;
+
+	UFUNCTION(BlueprintPure, Category=Equipment, meta=(DeterminesOutputType=PawnType))
+	APawn* GetTypedPawn(TSubclassOf<APawn> PawnType) const;
+	// DeterminesOutputType은 C++ 정의에는 APawn*를 반환하지만, BP에서는 PawnType에 따라 OutputType이 결정되도록 리다이렉트함.
+
+	void SpawnEquipmentActors(const TArray<FLyraEquipmentActorToSpawn>& ActorsToSpawn);
+
+	UFUNCTION(BlueprintImplementableEvent, Category=Equipment, meta=(DisplayName="OnEquipped"))
+	void K2_OnEquipped();
+	
+	virtual void OnEquipped();
+
+	void DestroyEquipmentActors();
+
+	UFUNCTION(BlueprintImplementableEvent, Category=Equipment, meta=(DisplayName="OnUnequipped"))
+	void K2_OnUnequipped();
+
+	virtual void OnUnequipped();
 
 public:
 	UPROPERTY()

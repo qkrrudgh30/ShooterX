@@ -114,3 +114,25 @@ void ULyraEquipmentManagerComponent::UnequipItem(ULyraEquipmentInstance* ItemIns
 		// - 제거하는 과정을 통해 추가되었던 Actor Instance를 제거 진행
 	}
 }
+
+TArray<ULyraEquipmentInstance*> ULyraEquipmentManagerComponent::GetEquipmentInstancesOfType(
+	TSubclassOf<ULyraEquipmentInstance> InstanceType) const
+{
+	TArray<ULyraEquipmentInstance*> Results;
+
+	// EquipmentList를 순회하며
+	for (const FLyraAppliedEquipmentEntry& Entry : EquipmentList.Entries)
+	{
+		if (ULyraEquipmentInstance* Instance = Entry.Instance)
+		{
+			// InstanceType에 맞는 클래스이면 Results에 추가하여 반환.
+			// - 우리의 경우, LyraRangedWeaponInstance
+			if (Instance->IsA(InstanceType))
+			{
+				Results.Add(Instance);
+			}
+		}
+	}
+
+	return Results;
+}

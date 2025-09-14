@@ -2,6 +2,7 @@
 
 #include "LyraAbilitySystemComponent.h"
 #include "Ability/LyraGameplayAbility.h"
+#include "Animation/LyraAnimInstance.h"
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraAbilitySystemComponent)
 
 ULyraAbilitySystemComponent::ULyraAbilitySystemComponent(const FObjectInitializer& ObjectInitializer)
@@ -120,4 +121,28 @@ void ULyraAbilitySystemComponent::ProcessAbilityInput(float DeltaTime, bool bGam
 	// InputHeldSpecHandles는 InputReleasedSpecHandles 추가 될 때 제거됨.
 	InputPressedSpecHandles.Reset();
 	InputReleasedSpecHandles.Reset();
+}
+
+void ULyraAbilitySystemComponent::InitAbilityActorInfo(AActor* InOwnerActor, AActor* InAvatarActor)
+{
+	// HeroComponent::HandleChangeInitState() 함수 호출을 통해 AbilitySystemComponent::InitializeAbilitySystem() 함수가 호출됨.
+	// - 해당 호출에서 InitAbilityActorInfo() 함수가 호출됨. 이는 Controller가 빙의를 했음을 감지하고 호출하는 과정.
+	
+	FGameplayAbilityActorInfo* ActorInfo = AbilityActorInfo.Get();
+	check(ActorInfo);
+	check(InOwnerActor);
+
+	const bool bHasNewPawnAvatar = Cast<APawn>(InAvatarActor) && (InAvatarActor != ActorInfo->AvatarActor);
+
+	Super::InitAbilityActorInfo(InOwnerActor, InAvatarActor);
+
+	if (bHasNewPawnAvatar)
+	{
+		if (ULyraAnimInstance* AnimInstance = Cast<ULyraAnimInstance>(ActorInfo->GetAnimInstance()))
+		{
+			AnimInstance->InitializeWithAbilitySystem(this);
+			// 컨트롤러가 빙의하고 있는 폰의 애님인스턴스를 명시적으로 재호출하여 초기화 해줘야함.
+			// 명시적으로 호출하지 않으면 빙의 이후 Pawn의 변화에 대한 업데이트 호출이 되지 않음.
+		}
+	}
 }

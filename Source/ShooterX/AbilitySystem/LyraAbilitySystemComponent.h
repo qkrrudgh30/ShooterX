@@ -19,6 +19,9 @@ public:
 
 	void ProcessAbilityInput(float DeltaTime, bool bGamePaused);
 
+	virtual void InitAbilityActorInfo(AActor* InOwnerActor, AActor* InAvatarActor) override;
+	// 오너 액터와 아바타 액터가 정해질 때마다 내부적으로 호출되는 함수.
+
 public:
 	TArray<FGameplayAbilitySpecHandle> InputPressedSpecHandles;
 	// Ability Input을 처리할 Pending Queue

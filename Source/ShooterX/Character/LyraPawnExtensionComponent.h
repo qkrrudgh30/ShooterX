@@ -7,6 +7,7 @@
 #include "LyraPawnExtensionComponent.generated.h"
 
 class ULyraPawnData;
+class ULyraAbilitySystemComponent;
 
 /**
  * 폰에 부착될 컴포넌트들의 초기화 과정 전반을 관장하는 컴포넌트.
@@ -52,6 +53,12 @@ public:
 	
 	void SetupPlayerInputComponent();
 
+	ULyraAbilitySystemComponent* GetLyraAbilitySystemComponent() const { return AbilitySystemComponent; }
+
+	void InitializeAbilitySystem(ULyraAbilitySystemComponent* InASC, AActor* InOwnerActor);
+
+	void UninitializeAbilitySystem();
+
 public:
 	static const FName NAME_ActorFeatureName;
 	// FName 속성은 하나만 선언하는 것이 관례이기 때문에 static 키워드를 붙힘.
@@ -59,4 +66,7 @@ public:
 	UPROPERTY(EditInstanceOnly, ReplicatedUsing = OnRep_PawnData, Category = "ULyraPawnExtensionComponent")
 	TObjectPtr<const ULyraPawnData> PawnData;
 
+	UPROPERTY()
+	TObjectPtr<ULyraAbilitySystemComponent> AbilitySystemComponent;
+	
 };

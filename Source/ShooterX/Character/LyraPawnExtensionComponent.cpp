@@ -7,6 +7,8 @@
 #include "LyraGameplayTags.h"
 #include "Character/LyraPawnData.h"
 #include "Net/UnrealNetwork.h"
+#include "AbilitySystem/LyraAbilitySystemComponent.h"
+#include UE_INLINE_GENERATED_CPP_BY_NAME(LyraPawnExtensionComponent)
 
 const FName ULyraPawnExtensionComponent::NAME_ActorFeatureName("PawnExtension");
 // feature name을 component 단위니까 component를 빼고 pawn extension만 넣은 것을 확인 할 수 있음.
@@ -230,4 +232,38 @@ void ULyraPawnExtensionComponent::SetupPlayerInputComponent()
 {
 	// ForceUpdate로 다시 InitState 상태 변환 시작(연결 고리)
 	CheckDefaultInitialization();
+}
+
+void ULyraPawnExtensionComponent::InitializeAbilitySystem(ULyraAbilitySystemComponent* InASC, AActor* InOwnerActor)
+{
+	check(InASC && InOwnerActor);
+
+	if (AbilitySystemComponent == InASC)
+	{
+		return;
+	}
+
+	if (AbilitySystemComponent)
+	{
+		UninitializeComponent();
+	}
+
+	APawn* Pawn = GetPawnChecked<APawn>();
+	AActor* ExistingAvatar = InASC->GetAvatarActor();
+	check(!ExistingAvatar);
+
+	// ASC를 업데이트하고 InitAbilityActorInfo() 함수를 빙의된 폰과 함께 호출. AvararActor를 빙의된 폰으로 업데이트.
+	AbilitySystemComponent = InASC;
+	AbilitySystemComponent->InitAbilityActorInfo(InOwnerActor, Pawn);
+}
+
+
+void ULyraPawnExtensionComponent::UninitializeAbilitySystem()
+{
+	if (!AbilitySystemComponent)
+	{
+		return;
+	}
+
+	AbilitySystemComponent = nullptr;
 }

@@ -7,6 +7,7 @@
 
 class ULyraCameraMode;
 class ULyraInputConfig;
+class ULyraAbilitySet;
 
 /**
  * ULyraPawnData
@@ -30,5 +31,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "LyraClone|InputConfig")
 	TObjectPtr<ULyraInputConfig> InputConfig;
+
+	// 해당 Pawn의 AbilitySystem에 허용할 AbilitySet
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="LC|Abilities")
+	TArray<TObjectPtr<ULyraAbilitySet>> AbilitySets;
 
 };

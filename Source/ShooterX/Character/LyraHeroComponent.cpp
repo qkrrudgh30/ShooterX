@@ -153,6 +153,10 @@ void ULyraHeroComponent::HandleChangeInitState(UGameFrameworkComponentManager* M
 		if (ULyraPawnExtensionComponent* PawnExtComp = ULyraPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
 		{
 			PawnData = PawnExtComp->GetPawnData<ULyraPawnData>();
+
+			// DataInitialized 단계까지 오면 폰이 컨트롤러에 의해 빙의되어 있는 상태.
+			// - InitAbilityActorInfo() 함수 호출로 AvatarActor의 재지정이 필요.
+			PawnExtComp->InitializeAbilitySystem(LCPS->GetLyraAbilitySystemComponent(), LCPS);
 		}
 
 		if (bIsLocallyControlled && PawnData)

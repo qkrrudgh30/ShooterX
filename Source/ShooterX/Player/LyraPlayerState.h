@@ -7,6 +7,7 @@
 
 class ULyraExperienceDefinition;
 class ULyraPawnData;
+class ULyraAbilitySystemComponent;
 
 /**
  * 
@@ -28,6 +29,8 @@ public:
 
 	void SetPawnData(const ULyraPawnData* InPawnData);
 
+	ULyraAbilitySystemComponent* GetLyraAbilitySystemComponent() const { return AbilitySystemComponent; }
+
 public:
 	UPROPERTY()
 	TObjectPtr<const ULyraPawnData> PawnData;
@@ -37,5 +40,8 @@ public:
 	// 2. 진입점 통일. 로딩된 익스피리언스에서 폰데이터를 가져오는게 아니라, 게터를 따로 둬서 한 곳에서만 폰데이터를 가져가게끔 하기 위함.
 	//		또한 폰데이터의 수정은 플레이어 스테이트의 폰 데이터 속성만 내부적으로 수정하게끔 함. 로딩된 익스피리언스의 폰데이터를 수정하지 않음.
 	//		그러니 폰데이터는 오로지 플레이어 스테이트의 게터/세터를 통해야만 함.
+
+	UPROPERTY(VisibleAnywhere, Category="ALyraPlayerState")
+	TObjectPtr<ULyraAbilitySystemComponent> AbilitySystemComponent;
 	
 };

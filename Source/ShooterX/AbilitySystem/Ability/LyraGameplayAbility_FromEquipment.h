@@ -5,6 +5,8 @@
 #include "LyraGameplayAbility.h"
 #include "LyraGameplayAbility_FromEquipment.generated.h"
 
+class ULyraEquipmentInstance;
+
 UCLASS()
 class SHOOTERX_API ULyraGameplayAbility_FromEquipment : public ULyraGameplayAbility
 {
@@ -13,4 +15,6 @@ class SHOOTERX_API ULyraGameplayAbility_FromEquipment : public ULyraGameplayAbil
 public:
 	ULyraGameplayAbility_FromEquipment(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
+	ULyraEquipmentInstance* GetAssociatedEquipment() const;
+	
 };

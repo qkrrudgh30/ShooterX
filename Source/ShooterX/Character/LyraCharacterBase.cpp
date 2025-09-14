@@ -4,6 +4,7 @@
 #include "Character/LyraCharacterBase.h"
 #include "LyraPawnExtensionComponent.h"
 #include "Camera/LyraCameraComponent.h"
+#include "AbilitySystem/LyraAbilitySystemComponent.h"
 
 ALyraCharacterBase::ALyraCharacterBase(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -29,4 +30,10 @@ void ALyraCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	// Pawn이 Possess로서, Controller와 PlayerState 정보 접근이 가능한 상태가 되었음.
 	// - SetupPlayerInputComponent() 함수 살펴보기
 	PawnExtensionComponent->SetupPlayerInputComponent();
+}
+
+UAbilitySystemComponent* ALyraCharacterBase::GetAbilitySystemComponent() const
+{
+	// 앞서 우리는 PawnExtensionComponent에 AbilitySystemComponent를 캐싱 했었음.
+	return Cast<UAbilitySystemComponent>(PawnExtensionComponent->GetLyraAbilitySystemComponent());
 }

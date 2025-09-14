@@ -13,6 +13,24 @@ void FLyraAbilitySet_GrantedHandles::AddAbilitySpecHandle(const FGameplayAbility
 	}
 }
 
+void FLyraAbilitySet_GrantedHandles::TakeFromAbilitySystem(ULyraAbilitySystemComponent* LCASC)
+{
+	if (!LCASC->IsOwnerActorAuthoritative())
+	{
+		return;
+	}
+
+	for (const FGameplayAbilitySpecHandle& Handle : AbilitySpecHandles)
+	{
+		if (Handle.IsValid())
+		{
+			// ActivatableAbilities에서 제거
+			// - ClearAbility() 함수를 잠시 보고 오자.
+			LCASC->ClearAbility(Handle);
+		}
+	}
+}
+
 ULyraAbilitySet::ULyraAbilitySet(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {

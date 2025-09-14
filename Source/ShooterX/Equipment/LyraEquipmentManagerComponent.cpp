@@ -3,6 +3,8 @@
 #include "LyraEquipmentManagerComponent.h"
 #include "LyraEquipmentDefinition.h"
 #include "LyraEquipmentInstance.h"
+#include "AbilitySystemGlobals.h"
+#include "AbilitySystem/LyraAbilitySystemComponent.h"
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraEquipmentManagerComponent)
 
 ULyraEquipmentInstance* FLyraEquipmentList::AddEntry(TSubclassOf<ULyraEquipmentDefinition> EquipmentDefinition)
@@ -29,6 +31,17 @@ ULyraEquipmentInstance* FLyraEquipmentList::AddEntry(TSubclassOf<ULyraEquipmentD
 	Result->SpawnEquipmentActors(EquipmentCDO->ActorsToSpawn);
 	// ActorsToSpawn을 통해 Actor들을 개체화. 어디에? EquipmentInstance에.
 
+	ULyraAbilitySystemComponent* ASC = GetAbilitySystemComponent();
+	check(ASC)
+	{
+		for (TObjectPtr<ULyraAbilitySet> AbilitySet : EquipmentCDO->AbilitySetsToGrant)
+		{
+			AbilitySet->GiveToAbilitySystem(ASC, &NewEntry.GrantedHandles, Result);
+		}
+	}
+
+	Result->SpawnEquipmentActors(EquipmentCDO->ActorsToSpawn);
+
 	return Result;
 }
 
@@ -40,11 +53,31 @@ void FLyraEquipmentList::RemoveEntry(ULyraEquipmentInstance* Instance)
 		// 단순히 그냥 Entries를 순회하며 Instance를 찾아서
 		if (Entry.Instance == Instance)
 		{
+			ULyraAbilitySystemComponent* ASC = GetAbilitySystemComponent();
+			check(ASC);
+			{
+				// TakeFromAbilitySystem() 함수는 GiveToAbilitySystem() 함수의 반대. ActivatableAbilities에서 어빌리티 제거.
+				Entry.GrantedHandles.TakeFromAbilitySystem(ASC);
+			}
+			
 			Instance->DestroyEquipmentActors();
 			EntryIt.RemoveCurrent();
 			// Actor 제거 작업 및 iterator를 통해 안전하게 Array에서 제거 진행
 		}
 	}
+}
+
+ULyraAbilitySystemComponent* FLyraEquipmentList::GetAbilitySystemComponent() const
+{
+	check(OwnerComponent);
+
+	AActor* OwningActor = OwnerComponent->GetOwner();
+
+	// GetAbilitySystemComponentFromActor() 함수를 확인해보자.
+	// - EquipmentManagerComponent는 ALCCharacter를 Owner로 가지고 있음.
+	// - 해당 함수는 IAbilitySystemInterface를 통해 AbilitySystemComponent를 반환함.
+	// - GetAbilitySystemComponentFromActor() 함수가 제대로 동작하려면 LyraCharacter가 IAbilitySystemInterface를 상속 받고 GetAbilitySystemComponent() 함수를 재정의 해줘야함.
+	return Cast<ULyraAbilitySystemComponent>(UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(OwningActor));
 }
 
 ULyraEquipmentManagerComponent::ULyraEquipmentManagerComponent(const FObjectInitializer& ObjectInitializer)

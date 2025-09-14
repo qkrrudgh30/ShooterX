@@ -40,6 +40,8 @@ struct FLyraAbilitySet_GrantedHandles
 public:
 	void AddAbilitySpecHandle(const FGameplayAbilitySpecHandle& Handle);
 
+	void TakeFromAbilitySystem(ULyraAbilitySystemComponent* LCASC);
+
 protected:
 	// 허용된 GameplayAbilitySpecHandle(int32)
 	UPROPERTY()

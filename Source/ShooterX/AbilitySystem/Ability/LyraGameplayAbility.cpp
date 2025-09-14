@@ -6,4 +6,5 @@
 ULyraGameplayAbility::ULyraGameplayAbility(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
+	ActivationPolicy = ELyraAbilityActivationPolicy::OnInputTriggered;
 }

@@ -10,6 +10,7 @@
 #include "LyraEquipmentDefinition.generated.h"
 
 class ULyraEquipmentInstance;
+class ULyraAbilitySet;
 
 USTRUCT()
 struct FLyraEquipmentActorToSpawn
@@ -53,5 +54,9 @@ public:
 	TArray<FLyraEquipmentActorToSpawn> ActorsToSpawn;
 	// 해당 장착 아이템을 장착 하여서 스폰"될" 액터의 정보을 담아두는 컨테이너
 	// ex) 한벌 옷은 데피니션은 하나지만 상의와 하의 액터가 따로 스폰될 수 있음.
+
+	UPROPERTY(EditDefaultsOnly, Category=Equipment)
+	TArray<TObjectPtr<ULyraAbilitySet>> AbilitySetsToGrant;
+	// 장착을 통해 부여 가능한 AbilitySet
 
 };

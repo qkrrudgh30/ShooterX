@@ -13,6 +13,7 @@
 #include "Input/LyraEnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
+#include "AbilitySystem/LyraAbilitySystemComponent.h"
 
 const FName ULyraHeroComponent::NAME_ActorFeatureName("Hero");
 const FName ULyraHeroComponent::NAME_BindInputsNow("BindInputsNow");
@@ -239,6 +240,11 @@ void ULyraHeroComponent::InitializePlayerInput(UInputComponent* PlayerInputCompo
 
 				ULyraEnhancedInputComponent* IC = CastChecked<ULyraEnhancedInputComponent>(PlayerInputComponent);
 				{
+					{
+						TArray<uint32> BindHandles;
+						IC->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, BindHandles);
+					}
+					
 					// InputTag_Move와 InputTag_Look_Mouse에 대해 각각 Input_Move()와 Input_LookMouse() 멤버 함수에 바인딩시킴.
 					// - 바인딩한 이후, Input 이벤트에 따라 멤버 함수가 트리거됨.
 					IC->BindNativeAction(InputConfig, GameplayTags.InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move, false);
@@ -305,5 +311,33 @@ void ULyraHeroComponent::Input_LookMouse(const FInputActionValue& InputActionVal
 		// Y에는 Pitch 값
 		double AimInversionValue = -Value.Y;
 		Pawn->AddControllerPitchInput(AimInversionValue);
+	}
+}
+
+void ULyraHeroComponent::Input_AbilityInputTagPressed(FGameplayTag InputTag)
+{
+	if (const APawn* Pawn = GetPawn<APawn>())
+	{
+		if (const ULyraPawnExtensionComponent* PawnExtComp = ULyraPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
+		{
+			if (ULyraAbilitySystemComponent* LCASC = PawnExtComp->GetLyraAbilitySystemComponent())
+			{
+				LCASC->AbilityInputTagPressed(InputTag);
+			}
+		}
+	}
+}
+
+void ULyraHeroComponent::Input_AbilityInputTagReleased(FGameplayTag InputTag)
+{
+	if (const APawn* Pawn = GetPawn<APawn>())
+	{
+		if (const ULyraPawnExtensionComponent* PawnExtComp = ULyraPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
+		{
+			if (ULyraAbilitySystemComponent* LCASC = PawnExtComp->GetLyraAbilitySystemComponent())
+			{
+				LCASC->AbilityInputTagReleased(InputTag);
+			}
+		}
 	}
 }

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Components/PawnComponent.h"
+#include "AbilitySystem/LyraAbilitySet.h"
 #include "LyraEquipmentManagerComponent.generated.h"
 
 class ULyraEquipmentDefinition;
@@ -21,6 +22,10 @@ public:
 	UPROPERTY()
 	TObjectPtr<ULyraEquipmentInstance> Instance = nullptr;
 	// 이큅먼트데피니션을 통해 생성된 인스턴스
+
+	UPROPERTY()
+	FLyraAbilitySet_GrantedHandles GrantedHandles;
+	// 무기에 할당된 어빌리티의 핸들들
 
 };
 
@@ -41,6 +46,8 @@ public:
 	ULyraEquipmentInstance* AddEntry(TSubclassOf<ULyraEquipmentDefinition> EquipmentDefinition);
 
 	void RemoveEntry(ULyraEquipmentInstance* Instance);
+
+	ULyraAbilitySystemComponent* GetAbilitySystemComponent() const;
 
 public:
 	UPROPERTY()

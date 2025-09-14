@@ -5,6 +5,9 @@
 #include "ModularPlayerController.h"
 #include "LyraPlayerController.generated.h"
 
+class ALyraPlayerState;
+class ULyraAbilitySystemComponent;
+
 /**
  * 
  */
@@ -15,5 +18,12 @@ class SHOOTERX_API ALyraPlayerController : public AModularPlayerController
 
 public:
 	ALyraPlayerController(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+	ALyraPlayerState* GetLyraPlayerState() const;
+
+	ULyraAbilitySystemComponent* GetLyraAbilitySystemComponent() const;
+
+	// PlayerController Interface
+	virtual void PostProcessInput(const float DeltaTime, const bool bGamePaused) override;
 	
 };

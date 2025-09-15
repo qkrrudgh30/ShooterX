@@ -31,6 +31,8 @@ public class ShooterX : ModuleRules
 			// GameplayAbilitySystem
 			"GameplayTasks",
 			"GameplayAbilities", // GameplayTasks 모듈에 Dependency 있음.
+
+			"CommonGame",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

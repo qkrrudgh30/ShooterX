@@ -53,6 +53,10 @@
         {
           "Name": "ModularGameplayActor",
           "Enabled": true
-        }
+        },
+		{
+			"Name": "CommonGame",
+			"Enabled": true
+		}
 	]
 }

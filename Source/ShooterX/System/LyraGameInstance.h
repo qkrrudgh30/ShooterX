@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Engine/GameInstance.h"
+#include "CommonGame/CommonGameInstance.h"
 #include "LyraGameInstance.generated.h"
 
 /**
@@ -11,7 +11,7 @@
  * - Editor 상에서는 PIE로 실행 될 때마다 하나씩 생성됨. 즉, 에디터에서는 복수 개의 GameInstance가 존재 가능. (ex. 클라1, 클라2, 서버, ....) 
  */
 UCLASS()
-class SHOOTERX_API ULyraGameInstance : public UGameInstance
+class SHOOTERX_API ULyraGameInstance : public UCommonGameInstance
 {
 	GENERATED_BODY()
 

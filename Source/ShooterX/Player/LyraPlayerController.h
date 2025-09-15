@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "ModularPlayerController.h"
+#include "CommonGame/CommonPlayerController.h"
 #include "LyraPlayerController.generated.h"
 
 class ALyraPlayerState;
@@ -12,7 +12,7 @@ class ULyraAbilitySystemComponent;
  * 
  */
 UCLASS()
-class SHOOTERX_API ALyraPlayerController : public AModularPlayerController
+class SHOOTERX_API ALyraPlayerController : public ACommonPlayerController
 {
 	GENERATED_BODY()
 

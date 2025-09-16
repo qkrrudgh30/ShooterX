@@ -57,6 +57,14 @@
 		{
 			"Name": "CommonGame",
 			"Enabled": true
-		}
+		},
+      {
+        "Name": "CommonUI",
+        "Enabled": true
+      },
+      {
+        "Name": "UIExtension",
+        "Enabled": true
+      }
 	]
 }

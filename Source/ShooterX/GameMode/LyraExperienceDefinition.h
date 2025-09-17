@@ -17,6 +17,12 @@ class SHOOTERX_API ULyraExperienceDefinition : public UPrimaryDataAsset
 public:
 	ULyraExperienceDefinition(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
+#if WITH_EDITORONLY_DATA
+
+	virtual void UpdateAssetBundleData() override;
+	
+#endif
+	
 public:
 	UPROPERTY(EditDefaultsOnly, Category = Gameplay)
 	TObjectPtr<ULyraPawnData> DefaultPawnData;

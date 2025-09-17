@@ -17,6 +17,12 @@ class SHOOTERX_API ULyraExperienceActionSet : public UPrimaryDataAsset
 public:
 	ULyraExperienceActionSet();
 
+#if WITH_EDITORONLY_DATA
+
+	virtual void UpdateAssetBundleData() override;
+	
+#endif
+
 public:
 	UPROPERTY(EditAnywhere, Category = "Actions to Perform")
 	TArray<TObjectPtr<UGameFeatureAction>> Actions;

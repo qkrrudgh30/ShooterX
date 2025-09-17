@@ -16,7 +16,7 @@ struct FLyraHUDLayoutRequest
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Category=UI)
+	UPROPERTY(EditAnywhere, Category=UI, meta=(AssetBundles="Client"))
 	TSoftClassPtr<UCommonActivatableWidget> LayoutClass;
 	// UI의 레이아웃으로 CommonActivatableWidget을 사용.
 

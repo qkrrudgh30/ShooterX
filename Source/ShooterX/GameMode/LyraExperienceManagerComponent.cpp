@@ -180,6 +180,18 @@ void ULyraExperienceManagerComponent::StartExperienceLoad()
 		//   -> 지금 상황에서는 B_DefaultExperience가 BP Class이고, 그때문에 한 단계 위 부모의 Native C++ 클래스 LyraExperienceDefinition이 반환됨.
 		//   -> 동시에 우리가 프로젝트 세팅 > 애셋 매니저 > 스캔목록에 등록한 것도 LyraExperienceDefinition임. 아다리가 딱 맞음.
 
+	// ExperienceActionSet을 순회하며 BundleAssetList로 추가하자.
+	for (const TObjectPtr<ULyraExperienceActionSet>& ActionSet : CurrentExperience->ActionSets)
+	{
+		if (ActionSet)
+		{
+			// 앞서, 우리가 생성한 LAS_Shooter_SharedHUD가 추가될 예정. 다른 LAS_Shooter도 추가될 예정.
+			// BundleAssetList는 Bundle로 등록할 Root의 PrimaryDataAsset을 추가하는 과정임
+			// 무슨 말인가 싶을건데 ChangeBundleStateForPrimaryAssets을 살펴보면서 이해하자.
+			BundleAssetList.Add(ActionSet->GetPrimaryAssetId());
+		}
+	}
+	
 	// load assets associated with the experience
 	// 아래는 우리가 후일 GameFeature를 사용하여, Experience에 바인딩된 GameFeature Plugin을 로딩할 Bundle 이름을 추가함.
 	// - Bundle이라는게 후일 우리가 로딩할 애셋의 카테고리 이름이라고 생각하면 됨. 후일 다시 다룰 예정.

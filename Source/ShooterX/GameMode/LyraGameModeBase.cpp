@@ -12,6 +12,7 @@
 #include "Character/LyraPawnData.h"
 #include "Character/LyraPawnExtensionComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "UI/LyraHUD.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraGameModeBase)
 
@@ -22,6 +23,7 @@ ALyraGameModeBase::ALyraGameModeBase(const FObjectInitializer& ObjectInitializer
 	PlayerControllerClass = ALyraPlayerController::StaticClass();
 	PlayerStateClass = ALyraPlayerState::StaticClass();
 	DefaultPawnClass = ALyraCharacterBase::StaticClass();
+	HUDClass = ALyraHUD::StaticClass();
 }
 
 void ALyraGameModeBase::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)

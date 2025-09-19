@@ -6,7 +6,7 @@
 #include "CommonActivatableWidget.h"
 #include "GameplayTagContainer.h"
 #include "Components/GameFrameworkComponentManager.h"
-#include "UIExtension/UIExtensionSubsystem.h"
+#include "UIExtension/UIExtensionSystem.h"
 #include "GFA_AddWidget.generated.h"
 
 // HUD의 Layout 요청

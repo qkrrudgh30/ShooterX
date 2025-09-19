@@ -3,7 +3,7 @@
 #include "GFA_AddWidget.h"
 #include "UI/LyraHUD.h"
 #include "CommonGame/CommonUIExtension.h"
-#include "UIExtension/UIExtensionSubsystem.h"
+#include "UIExtension/UIExtensionSystem.h"
 #include UE_INLINE_GENERATED_CPP_BY_NAME(GFA_AddWidget)
 
 void UGFA_AddWidget::AddWidgets(AActor* Actor, FPerContextData& ActiveData)

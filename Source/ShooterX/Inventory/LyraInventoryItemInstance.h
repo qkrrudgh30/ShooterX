@@ -18,6 +18,7 @@ class SHOOTERX_API ULyraInventoryItemInstance : public UObject
 public:
 	ULyraInventoryItemInstance(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
+	UFUNCTION(BlueprintCallable, BlueprintPure=false, meta=(DeterminesOutputType=FragmentClass))
 	const ULyraInventoryItemFragment* FindFragmentByClass(TSubclassOf<ULyraInventoryItemFragment> FragmentClass) const;
 
 	template<typename ResultClass>
@@ -25,7 +26,7 @@ public:
 	{
 		return (ResultClass*)FindFragmentByClass(ResultClass::StaticClass());
 	}
-	
+
 public:
 	UPROPERTY()
 	TSubclassOf<ULyraInventoryItemDefinition> ItemDef;

@@ -1,0 +1,4 @@
+// LyraInventoryFragment_ReticleConfig.cpp
+
+#include "LyraInventoryFragment_ReticleConfig.h"
+#include UE_INLINE_GENERATED_CPP_BY_NAME(LyraInventoryFragment_ReticleConfig)

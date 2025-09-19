@@ -73,7 +73,16 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	TArray<ULyraEquipmentInstance*> GetEquipmentInstancesOfType(TSubclassOf<ULyraEquipmentInstance> InstanceType) const;
+	
+	// 장착물 중 처음 것을 반환. 없으면 nullptr
+	ULyraEquipmentInstance* GetFirstInstanceOfType(TSubclassOf<ULyraEquipmentInstance> InstanceType);
 
+	template <typename T>
+	T* GetFirstInstanceOfType()
+	{
+		return (T*)GetFirstInstanceOfType(T::StaticClass());
+	}
+	
 public:
 	UPROPERTY()
 	FLyraEquipmentList EquipmentList;

@@ -136,3 +136,20 @@ TArray<ULyraEquipmentInstance*> ULyraEquipmentManagerComponent::GetEquipmentInst
 
 	return Results;
 }
+
+ULyraEquipmentInstance* ULyraEquipmentManagerComponent::GetFirstInstanceOfType(
+	TSubclassOf<ULyraEquipmentInstance> InstanceType)
+{
+	for (FLyraAppliedEquipmentEntry& Entry : EquipmentList.Entries)
+	{
+		if (ULyraEquipmentInstance* Instance = Entry.Instance)
+		{
+			if (Instance->IsA(InstanceType))
+			{
+				return Instance;
+			}
+		}
+	}
+
+	return nullptr;
+}

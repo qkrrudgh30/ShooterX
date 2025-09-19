@@ -18,5 +18,10 @@ void ACommonPlayerController::ReceivedPlayer()
 		// PlayerController가 LocalPlayer에 붙으면 활성화되는 이벤트가 ReceivedPlayer() 함수.
 		
 		LocalPlayer->OnPlayerControllerSet.Broadcast(LocalPlayer, this);
+
+		if (PlayerState)
+		{
+			LocalPlayer->OnPlayerStateSet.Broadcast(LocalPlayer, PlayerState);
+		}
 	}
 }

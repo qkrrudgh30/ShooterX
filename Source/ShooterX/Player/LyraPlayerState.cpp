@@ -8,12 +8,17 @@
 #include "AbilitySystem/LyraAbilitySystemComponent.h"
 #include "AbilitySystem/LyraAbilitySet.h"
 #include "Character/LyraPawnData.h"
+#include "AbilitySystem/Attribute/LyraHealthSet.h"
+#include "AbilitySystem/Attribute/LyraCombatSet.h"
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraPlayerState)
 
 ALyraPlayerState::ALyraPlayerState(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	AbilitySystemComponent = ObjectInitializer.CreateDefaultSubobject<ULyraAbilitySystemComponent>(this, TEXT("AbilitySystemComponent"));
+
+	HealthSet = CreateDefaultSubobject<ULyraHealthSet>(TEXT("HealthSet"));
+	CombatSet = CreateDefaultSubobject<ULyraCombatSet>(TEXT("CombatSet"));
 }
 
 void ALyraPlayerState::PostInitializeComponents()

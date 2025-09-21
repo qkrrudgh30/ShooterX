@@ -8,6 +8,8 @@
 class ULyraExperienceDefinition;
 class ULyraPawnData;
 class ULyraAbilitySystemComponent;
+class ULyraHealthSet;
+class ULyraCombatSet;
 
 /**
  * 
@@ -43,5 +45,11 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category="ALyraPlayerState")
 	TObjectPtr<ULyraAbilitySystemComponent> AbilitySystemComponent;
+
+	UPROPERTY()
+	TObjectPtr<const ULyraHealthSet> HealthSet;
+	
+	UPROPERTY()
+	TObjectPtr<const ULyraCombatSet> CombatSet;
 	
 };
